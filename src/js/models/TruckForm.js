@@ -1,5 +1,5 @@
-import { show, hide } from '../Helpers/ElementVisibilty.js';
-
+import { show, hide} from '../Helpers/ElementVisibilty.js';
+import {TruckType} from '../modules.js'
 let currentStep = 0;
 let steps = document.getElementsByClassName("step");
 
@@ -42,15 +42,6 @@ function updateButtonVisibility() {
     }
 }
 
-function resetForm() {
-    currentStep = 0;
-    document.getElementById("length").value = null;
-    document.getElementById("width").value = null;
-    document.getElementById("arrival_interval").value = null;
-    document.getElementById("type").value = "cold";
-    document.getElementById("radius").value = null;
-}
-
 nextBtn.addEventListener('click', function () {
     showStep(currentStep + 1);
 });
@@ -59,6 +50,20 @@ prevBtn.addEventListener('click', function () {
     showStep(currentStep - 1);
 });
 
-saveBtn.addEventListener('click', function () {
-    
-});
+
+export default class TruckForm {
+    constructor(callback) {
+        saveBtn.addEventListener('click', function() {
+            callback();
+        })
+
+        let selectTag = document.createElement('truckTypes');
+        TruckType.map((lang, i) => {
+            let opt = document.createElement("option");
+            opt.value = i; // the index
+            opt.innerHTML = lang;
+            selectTag.append(opt);
+        });
+    }
+}
+

@@ -16,7 +16,6 @@ export default class MainController {
     handleLocationInput(city){
         this._weatherHelper.updateWeatherData(city).then(() => {
             this._locationInputView.setWeatherData(this._weatherHelper.weatherData)
-            this._locationInputView.render();
         });
     }
 }

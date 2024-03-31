@@ -20,4 +20,9 @@ export default class LoadingHall {
     get id() {
         return this._id;
     }
+
+
+    addTruck(truck) {
+        console.log(truck)
+    }
 }

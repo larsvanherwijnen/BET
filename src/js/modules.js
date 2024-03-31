@@ -5,10 +5,14 @@
 // Controllers
 import MainController from "./controllers/MainController.js"
 import LoadingHallController from "./Controllers/LoadingHallController.js"
+import TruckController from "./Controllers/TruckController.js"
 
 // Models
 import BetTransport from "./Models/BetTransport.js"
 import LoadingHall from "./Models/LoadingHall.js"
+import Truck from "./models/truck.js"
+import TruckForm from "./Models/TruckForm.js"
+import TruckType from "./Models/TruckType.js"
 
 //Views
 import LoadingHallSwitcher from "./Views/LoadingHallSwitcherView.js"
@@ -24,10 +28,14 @@ import WeatherHelper from "./Helpers/weather.js"
 export {
     MainController,
     LoadingHallController,
+    TruckController,
 
 
     LoadingHall,
     BetTransport,
+    Truck,
+    TruckForm,
+    TruckType,
 
     LoadingHallSwitcher,
     LocationInputView,

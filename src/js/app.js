@@ -1,6 +1,4 @@
-/**
- * Application entry point
- */
+import './Models/TruckForm.js';
 
 import { MainController } from './modules.js';
 

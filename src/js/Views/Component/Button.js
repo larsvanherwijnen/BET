@@ -5,7 +5,6 @@ export default class Button {
      * @returns { HTMLElement }
      */
     constructor(isActive, textContent, id, callBack) {
-        console.log(callBack)
         const element = document.createElement('button');
         element.className = 'w-full border border-2 border-slate-700 rounded-2xl p-2 mt-2';
         element.textContent = textContent;

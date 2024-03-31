@@ -1,10 +1,13 @@
-import  {LoadingHall, LoadingHallSwitcher} from "../modules.js"
+import  {LoadingHall, LoadingHallSwitcher, TruckController} from "../modules.js"
 
 export default class LoadingHallController {
     constructor(transport) {
         this._transport = transport;
         this.initiateLoadingHalls(2);
         this.render();
+
+        this._truckController = new TruckController(transport);
+
     }
 
     render() {

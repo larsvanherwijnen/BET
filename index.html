@@ -11,29 +11,15 @@
 
 <body class="bg-slate-300">
     <main class="flex w-full">
-        <div class="bg-slate-500 w-3/12 rounded-r-xl shadow h-screen p-5 space-y-5">
+        <div class="bg-slate-500 w-3/12 rounded-r-xl shadow h-screen p-5 space-y-5" id="section-left">
             <div class="flex flex-col">
                 <span class="text-3xl font-semibold">Laadhallen</span>
-                <div class="grid grid-cols-2 gap-4 mt-3">
-                    <button class="w-full border border-2 border-slate-700 rounded-2xl p-2 bg-slate-700 text-white">Laadhal 1</button>
-                    <button class="w-full border border-2 border-slate-700 rounded-2xl p-2">Laadhal 2</button>
-                    <button class="w-full border border-2 border-slate-700 rounded-2xl p-2">Laadhal 3</button>
+                <div class="grid grid-cols-2 gap-4 mt-3" id="loadingHallSwitcher">
                 </div>
             </div>
 
-            <div>
-                <span class="text-3xl font-semibold">Weer <span id="weerStad"></span></span>
-                <p>Het is momenteel <span id="weerGraden"></span> graden en het is <span id="weerConditie"></span> </p>
-                <span id="weersbeschrijving"></span>
-                <form id="weatherapi" class="">
-                    <select id="city" class="w-full rounded p-2">
-                        <option value="Amsterdam">Amsterdam</option>
-                        <option value="New York">New York</option>
-                        <option value="Birmingham">Birmingham</option>
-                        <option value="Melbourne">Melbourne</option>
-                        <option value="Sarajevo">Sarajevo</option>
-                    </select>
-                </form>
+            <div id="weather" class="flex flex-col">
+                
             </div>
             <div>
                 <span class="text-3xl font-semibold">Trucks</span>
@@ -63,12 +49,7 @@
         
                     <div class="flex flex-col w-full step hidden">
                         <label for="type">Type transport : </label>
-                        <select id="type" class="w-full rounded p-2">
-                            <option value="cold">Koud</option>
-                            <option value="fragile">Breekbaar</option>
-                            <option value="general">Algemeen</option>
-                            <option value="pallets">Pallets</option>
-                            <option value="fastdelivery">Snelkoerier</option>
+                        <select id="truckTypes" class="w-full rounded p-2">
                         </select>
                     </div>
         

@@ -1,11 +1,12 @@
-import { show, hide } from './helpers.js';
+import { show, hide } from '../Helpers/ElementVisibilty.js';
 
 let currentStep = 0;
 let steps = document.getElementsByClassName("step");
 
 let nextBtn = document.getElementById('nextBtn');
 let prevBtn = document.getElementById('prevBtn');
-let saveBtn = document.getElementById('saveBtn')
+let saveBtn = document.getElementById('saveBtn');
+let truckTypes = document.getElementById('truckTypes');
 
 showStep(currentStep)
 

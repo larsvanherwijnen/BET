@@ -57,12 +57,12 @@ export default class TruckForm {
             callback();
         })
 
-        let selectTag = document.createElement('truckTypes');
-        TruckType.map((lang, i) => {
+        // Convert the TruckType object to an array and populate the select element
+        Object.values(TruckType).map((lang, i) => {
             let opt = document.createElement("option");
             opt.value = i; // the index
             opt.innerHTML = lang;
-            selectTag.append(opt);
+            truckTypes.append(opt);
         });
     }
 }

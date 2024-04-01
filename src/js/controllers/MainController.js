@@ -5,7 +5,7 @@ export default class MainController {
         const betTransport = new BetTransport();
         new LoadingHallController(betTransport);
         this._weatherHelper = new WeatherHelper()
-        this._locationInputView = new LocationInputView(this.handleLocationInput.bind(this), 'section-left');
+        this._locationInputView = new LocationInputView(this.handleLocationInput.bind(this));
         this.render()
     }
 
@@ -15,7 +15,9 @@ export default class MainController {
 
     handleLocationInput(city){
         this._weatherHelper.updateWeatherData(city).then(() => {
-            this._locationInputView.setWeatherData(this._weatherHelper.weatherData)
+            this._locationInputView.setWeatherData(this._weatherHelper.weatherData);
+            this.render()
+
         });
     }
 }

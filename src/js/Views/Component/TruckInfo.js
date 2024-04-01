@@ -2,9 +2,11 @@ export default class TruckInfo {
     /**
      * @param { boolean } isActive
      * @param { string } textContent
+     * @param { string } id
+     * @param { Function } callBack
      * @returns { HTMLElement }
      */
-    constructor(isActive, textContent) {
+    constructor(isActive, textContent, id, callBack) {
         const container = document.createElement('div');
         container.className = 'bg-gray-400 rounded p-2 flex justify-between items-center';
 
@@ -38,7 +40,7 @@ export default class TruckInfo {
         button.id = id;
         button.addEventListener('click', e => {
             const buttonId = e.target.id;
-            callBack(buttonId);        
+            callBack(buttonId);
         });
 
         if (isActive) {

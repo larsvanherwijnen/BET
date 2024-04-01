@@ -1,28 +1,30 @@
 export default class BetTransport {
-    set loadingHalls(loadingHalls) {
-        this._loadingHalls = loadingHalls;
-        this.activeLoadingHall = loadingHalls[0].id;
+    constructor() {
+        this._loadingHalls = [];
+        this._activeLoadingHall = null;
     }
 
     get loadingHalls() {
         return this._loadingHalls;
     }
 
-    get conveyorBelts() {
-        return this._activeLoadingHall.conveyorBelts;
+    set loadingHalls(loadingHalls) {
+        this._loadingHalls = loadingHalls;
     }
 
     get activeLoadingHall() {
-        return this._loadingHalls.find(hall => hall.getIsActive() === true);
+        return this._activeLoadingHall;
     }
 
-    set activeLoadingHall(id) {
-        const currentActive = this._loadingHalls.find(hall => hall.getIsActive() === true);
-        currentActive?.setIsActive(false);
+    set activeLoadingHall(loadingHall) {
+        if (this._activeLoadingHall) {
+            this._activeLoadingHall.setIsActive(false);
+        }
 
-        const newActive = this._loadingHalls.find(hall => hall.id == id);
-        newActive.setIsActive(true);
+        this._activeLoadingHall = loadingHall;
 
-        this._activeLoadingHall = newActive;
+        if (this._activeLoadingHall) {
+            this._activeLoadingHall.setIsActive(true);
+        }
     }
 }

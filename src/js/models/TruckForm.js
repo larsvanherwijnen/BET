@@ -58,12 +58,14 @@ export default class TruckForm {
         })
 
         // Convert the TruckType object to an array and populate the select element
-        Object.values(TruckType).map((lang, i) => {
+        Object.keys(TruckType).map((type) => {
             let opt = document.createElement("option");
-            opt.value = i; // the index
-            opt.innerHTML = lang;
+            opt.value = type; // the truck type
+            opt.innerHTML = TruckType[type];
             truckTypes.append(opt);
         });
     }
+
+   
 }
 

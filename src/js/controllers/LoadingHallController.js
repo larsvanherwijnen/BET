@@ -4,14 +4,17 @@ export default class LoadingHallController {
     constructor(transport) {
         this._transport = transport;
         this.initiateLoadingHalls(2);
+
+        // Set the activeLoadingHall property of transport
+        this._transport.activeLoadingHall = this._transport.loadingHalls[0];
+
         this.render();
 
         this._truckController = new TruckController(transport);
-
     }
 
     render() {
-        this._loadingHallSwitcherView = new LoadingHallSwitcher(this._transport.loadingHalls); 
+        this._loadingHallSwitcherView = new LoadingHallSwitcher(this._transport.loadingHalls);
     }
 
     initiateLoadingHalls(amountLoadingHalls) {
@@ -22,7 +25,5 @@ export default class LoadingHallController {
         }
 
         this._transport.loadingHalls = loadingHalls;
-
     }
-
 }

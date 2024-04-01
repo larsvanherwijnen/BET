@@ -14,6 +14,7 @@ export default class Weather {
                 const { lat, lon } = data[0];
                 return { lat, lon };
             } else {
+                document.getElementById("cityError").textContent = "City not found"
                 throw new Error("City not found");
             }
         } catch (error) {

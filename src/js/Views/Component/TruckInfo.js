@@ -4,7 +4,7 @@ export default class TruckInfo {
      * @param { string } textContent
      * @returns { HTMLElement }
      */
-    constructor(isActive, textContent) {
+    constructor(callBack, truck) {
         const container = document.createElement('div');
         container.className = 'bg-gray-400 rounded p-2 flex justify-between items-center';
 
@@ -12,41 +12,29 @@ export default class TruckInfo {
 
         const sizeSpan = document.createElement('span');
         sizeSpan.id = 'size';
-        sizeSpan.textContent = 'Maat: 6 x 3';
+        sizeSpan.textContent = `Maat: ${truck.length} x ${truck.width} `;
         innerDiv.appendChild(sizeSpan);
 
         const arrivalSpan = document.createElement('span');
         arrivalSpan.id = 'arrival_int';
-        arrivalSpan.textContent = 'Aankomst interval: 3s';
+        arrivalSpan.textContent = `Aankomst interval: ${truck.arrivalInterval}s`;
         innerDiv.appendChild(arrivalSpan);
 
         const truckSpan = document.createElement('span');
         truckSpan.id = 'truck_type';
-        truckSpan.textContent = 'Type: Snelkoerier';
+        truckSpan.textContent = `Type: ${truck.type}`;
         innerDiv.appendChild(truckSpan);
 
         container.appendChild(innerDiv);
 
         const icon = document.createElement('i');
         icon.className = 'fa-solid fa-xmark';
-        container.appendChild(icon);
-
-        // Create and configure button element
-        const button = document.createElement('button');
-        button.className = 'w-full border border-2 border-slate-700 rounded-2xl p-2 mt-2';
-        button.textContent = textContent;
-        button.id = id;
-        button.addEventListener('click', e => {
+        icon.addEventListener('click', e => {
             const buttonId = e.target.id;
             callBack(buttonId);        
         });
-
-        if (isActive) {
-            button.classList.add('bg-slate-700', 'text-white');
-        }
-
-        // Append button to container
-        container.appendChild(button);
+        container.appendChild(icon);
+      
 
         return container;
     }

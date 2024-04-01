@@ -1,10 +1,10 @@
-import { Button } from '../modules.js';
+import { TruckInfo } from '../modules.js';
 
 export default class TruckOverviewView {
 
-    constructor(loadingHalls) {
-        this._loadingHalls = loadingHalls;
-
+    constructor(callback, trucks) {
+        this._trucks = trucks;
+        this._callback = callback
         this._wrapperElementId = 'existingTrucks';
         this.render();
     }
@@ -19,10 +19,9 @@ export default class TruckOverviewView {
             wrapperElement.innerHTML = '';
         }
         
-
-        for (const loadingHall of this._loadingHalls) {
-            const buttonElement = new Button(loadingHall.getIsActive(), loadingHall.name, loadingHall.id, this._callbackFunction);
-            wrapperElement.appendChild(buttonElement);
+        for (const truck of this._trucks) {
+            const truckOverviewView = new TruckInfo(this._callback.bind(this), truck)
+            wrapperElement.appendChild(truckOverviewView);
         }
     }
 }

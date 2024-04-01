@@ -3,14 +3,18 @@ export default class LoadingHall {
         this._name = name;
         this._id = id;
         this._conveyorBelts = [];
+        this._trucks = [];
     }
 
-    setIsActive() {
+    setIsActive = (isActive) => this._isActive = isActive;
+    getIsActive = () => this._isActive;
 
+    set conveyorBelts(conveyorBelts) {
+        this._conveyorBelts = conveyorBelts;
     }
 
-    getIsActive() {
-        return false;
+    get conveyorBelts() {
+        return this._conveyorBelts;
     }
 
     get name() {
@@ -21,8 +25,17 @@ export default class LoadingHall {
         return this._id;
     }
 
+    getTrucks() {
+        return this._trucks;
+    }
+
 
     addTruck(truck) {
-        console.log(truck)
+        this._trucks.push(truck)
+    }
+
+    removeTruck(truckId) {
+        this._trucks.splice(truckId, 1)
+        return false;
     }
 }

@@ -2,15 +2,13 @@ import { Button } from '../modules.js';
 
 export default class LoadingHallSwitcher {
 
-    constructor(loadingHalls) {
+    constructor(loadingHalls, callback) {
         this._loadingHalls = loadingHalls;
+        this._callbackFunction = callback;
         this._wrapperElementId = 'loadingHallSwitcher';
         this.render();
     }
-
-    /**
-     * Renders the LoadingHallSwitcher component.
-     */
+    
     render() {
         const wrapperElement = document.getElementById(this._wrapperElementId)
 

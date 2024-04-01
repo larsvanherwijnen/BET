@@ -42,6 +42,14 @@ function updateButtonVisibility() {
     }
 }
 
+function resetForm() {
+    currentStep = 0;
+    document.getElementById("length").value = null;
+    document.getElementById("width").value = null;
+    document.getElementById("arrival_interval").value = null;
+    showStep(currentStep)
+}
+
 nextBtn.addEventListener('click', function () {
     showStep(currentStep + 1);
 });
@@ -55,12 +63,12 @@ export default class TruckForm {
     constructor(callback) {
         saveBtn.addEventListener('click', function() {
             callback();
+            resetForm()
         })
 
-        // Convert the TruckType object to an array and populate the select element
         Object.values(TruckType).map((lang, i) => {
             let opt = document.createElement("option");
-            opt.value = i; // the index
+            opt.value = i; 
             opt.innerHTML = lang;
             truckTypes.append(opt);
         });

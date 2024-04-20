@@ -10,8 +10,8 @@ export default class Weather {
         return fetch(url)
             .then(response => {
                 if (!response.ok) {
-                    document.getElementById("cityError").textContent = "City not found";
-                    throw new Error("City not found");
+                    document.getElementById("cityError").textContent = "Oeps! Er is iets fout gegaan";
+                    return;
                 }
                 return response.json();
             })
@@ -20,7 +20,7 @@ export default class Weather {
                     const { lat, lon } = data[0];
                     return { lat, lon };
                 } else {
-                    document.getElementById("cityError").textContent = "City not found";
+                    document.getElementById("cityError").textContent = "Stad niet";
                     throw new Error("City not found");
                 }
             })
@@ -31,6 +31,7 @@ export default class Weather {
     }
 
     async getWeatherInformation(city) {
+        document.getElementById("cityError").textContent = "";
         this.currentCity = city;
 
         return this.getCityCoordinates(city)

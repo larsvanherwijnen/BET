@@ -1,25 +1,25 @@
-import { Truck, TruckForm, TruckType, TruckOverviewView} from "../modules.js";
+import { Truck, TruckForm, TruckType, TruckOverviewView, getById} from "../modules.js";
 
 
 export default class TruckController {
-
     constructor(betTransport) {
         this._betTransport = betTransport;
 
-        this._betTransport.activeLoadingHall.addTruck(new Truck(2, 3, 2, TruckType.COLD));
-        this._betTransport.activeLoadingHall.addTruck(new Truck(3, 6, 3, TruckType.FAST));
-        this._betTransport.loadingHalls[1].addTruck(new Truck(2, 3, 2, TruckType.FRAGILE));
-        this._betTransport.loadingHalls[1].addTruck(new Truck(3, 5, 3, TruckType.PALLET));
+        this._betTransport.activeLoadingHall.addTruck(new Truck(2, 3, 2, TruckType.Cold));
+        this._betTransport.activeLoadingHall.addTruck(new Truck(3, 6, 3, TruckType.Fast));
+        this._betTransport.loadingHalls[1].addTruck(new Truck(2, 3, 2, TruckType.Fragile));
+        this._betTransport.loadingHalls[1].addTruck(new Truck(3, 5, 3, TruckType.Pallets));
 
         this.render()
     }
 
 
     render() {
-        new TruckForm(this.createTruck.bind(this))
+        new TruckForm(this.createTruck.bind(this),'section-left')
         new TruckOverviewView(
             this.removeTruck.bind(this),
             this._betTransport.activeLoadingHall.getTrucks(),
+            'section-left'
         );
     }
 
@@ -28,14 +28,12 @@ export default class TruckController {
         this.render();
     }
 
-    // 2 keer op de button klikken triggerd deze functie 2 keer. 
     createTruck() {  
-        let types = Object.values(TruckType);
         const truck = new Truck(
-            document.getElementById('width').value, 
-            document.getElementById('length').value, 
-            document.getElementById('arrival_interval').value,
-            types[document.getElementById('truckTypes').value]
+            getById('width').value, 
+            getById('lenght').value, 
+            getById('interval').value,
+            TruckType[getById('truckType').value]
         );
 
         this._betTransport.activeLoadingHall.addTruck(truck);

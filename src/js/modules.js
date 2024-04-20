@@ -6,14 +6,14 @@
 import MainController from "./controllers/MainController.js"
 import LoadingHallController from "./Controllers/LoadingHallController.js"
 import TruckController from "./Controllers/TruckController.js"
-import ConveyerbeltController from "./controllers/conveyerbeltController.js"
+import ConveyerbeltController from "./Controllers/ConveyerbeltController.js"
 
 // Models
 import BetTransport from "./Models/BetTransport.js"
 import LoadingHall from "./Models/LoadingHall.js"
 import Truck from "./models/truck.js"
-import TruckForm from "./Models/TruckForm.js"
-import TruckType from "./Models/TruckType.js"
+import TruckForm from "./Views/TruckCreateFormView.js"
+import TruckType from "./Enums/TruckTypes.js"
 import ConveyerBelt from "./Models/Conveyerbelt.js"
 
 //Views
@@ -21,15 +21,18 @@ import LoadingHallSwitcher from "./Views/LoadingHallSwitcherView.js"
 import LocationInputView from "./Views/LocationInputView.js"
 import TruckOverviewView from "./Views/TruckOverviewView.js"
 import ManageConveyerBeltsView from "./Views/ManageConveyerBeltsView.js"
-
 //Components
 import Button from "./Views/Component/Button.js"
-import TextInput from "./Views/Component/TextInput.js"
+import Input from "./Views/Component/Input.js"
+import SelectInput from "./Views/Component/SelectInput.js"
 import SectionTitle from "./Views/Component/SectionTitle.js"
 import TruckInfo from "./Views/Component/TruckInfo.js"
 
-//Helpers
-import WeatherHelper from "./Helpers/weather.js"
+//API
+import WeatherApi from "./Services/weather.js"
+
+//Utils
+import { createElement, clear, getById, show, hide, getElementsByClassName } from "./Utils/DomUtil.js"
 
 export {
     MainController,
@@ -42,7 +45,6 @@ export {
     BetTransport,
     Truck,
     TruckForm,
-    TruckType,
     ConveyerBelt,
 
     LoadingHallSwitcher,
@@ -50,11 +52,20 @@ export {
     TruckOverviewView,
     ManageConveyerBeltsView,
 
-
     Button,
-    TextInput,
+    Input,
     SectionTitle,
+    SelectInput,
     TruckInfo,
 
-    WeatherHelper
+    WeatherApi,
+
+    TruckType,
+
+    createElement,
+    getElementsByClassName,
+    clear,
+    getById,
+    show,
+    hide
 }

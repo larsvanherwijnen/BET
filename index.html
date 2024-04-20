@@ -12,68 +12,11 @@
 <body class="bg-slate-300">
     <main class="flex w-full">
         <div class="bg-slate-500 w-3/12 rounded-r-xl shadow h-screen p-5 space-y-5" id="section-left">
-            <div class="flex flex-col">
-                <span class="text-3xl font-semibold">Laadhallen</span>
-                <div class="grid grid-cols-2 gap-4 mt-3" id="loadingHallSwitcher">
-                </div>
-            </div>
-
-            <div id="weather" class="flex flex-col">
-                
-            </div>
-            <div id="weatherDescription" class="flex flex-col">
-                
-            </div>
-            <div>
-                <span class="text-3xl font-semibold">Trucks</span>
-                <div class="space-y-2 w-full" id="existingTrucks">
-                    <div class="bg-gray-400 rounded p-2 flex justify-between items-center">
-                        <div>
-                            <span id="size">Maat: 6 x 3</span>
-                            <span id="arrival_int">Aankomst interval: 3s</span>
-                            <span id="truck_type">Type: Snelkoerier</span>
-                        </div>
-                        <i class="fa-solid fa-xmark"></i>
-                    </div>
-                </div>
-                <form class="space-y-2" id="truckForm">
-                    <div class="flex flex-col w-full step hidden">
-                        <label for="">Dimenties Vrachtwagen :</label>
-                        <div class="flex space-x-2">
-                            <input placeholder="Lengte (max. 6)" id="length" class="w-1/2 rounded p-2" required>
-                            <input placeholder="Breedte (max. 3)" id="width" class="w-1/2 rounded p-2" required>
-                        </div>
-                    </div>
-        
-                    <div class="flex flex-col w-full step hidden">
-                        <label for="arrival_interval">Aankomst interval : </label>
-                        <input placeholder="interval (sec)" id="arrival_interval" class="w-full rounded p-2" required>
-                    </div>
-        
-                    <div class="flex flex-col w-full step hidden">
-                        <label for="type">Type transport : </label>
-                        <select id="truckTypes" class="w-full rounded p-2" required>
-                        </select>
-                    </div>
-        
-                    <div class="flex justify-between">
-                        <button type="button" id="prevBtn" class="bg-gray-800 text-white p-2 rounded">Vorige</button>
-                        <button type="button" id="nextBtn" class="bg-gray-800 text-white p-2 rounded">Volgende</button>
-                        <button type="button" id="saveBtn" class="bg-green-800 text-white p-2 rounded">Opslaan</button>
-                    </div>
-                </form>
-            </div>
-            <div class="flex flex-col">
-                <span class="text-3xl font-semibold">Lopende banden</span>
-                <div class="grid grid-cols-2 gap-4 mt-3" id="conveyerBelts">
-                </div>
-            </div>
         </div>
         <div class="w-full" id="loadingHall">
             Hall
         </div>
         <span id="conveyerBeltsCount"></span>
-
     </main>
     <script type="module" src="./src/js/app.js" defer></script>
 </body>

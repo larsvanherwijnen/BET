@@ -1,23 +1,16 @@
-import {WeatherHelper, BetTransport, LoadingHallController, LocationInputView} from "../modules.js"
+import {WeatherApi, BetTransport, LoadingHallController, LocationInputView} from "../modules.js"
 
 export default class MainController {
     constructor() {
         const betTransport = new BetTransport();
         new LoadingHallController(betTransport);
-        this._weatherHelper = new WeatherHelper()
-        this._locationInputView = new LocationInputView(this.handleLocationInput.bind(this));
-        this.render()
-    }
-
-    render() {
-        this._locationInputView.render();
+        this._weahterApi = new WeatherApi()
+        this._locationInputView = new LocationInputView(this.handleLocationInput.bind(this), 'section-left');
     }
 
     handleLocationInput(city){
-        this._weatherHelper.updateWeatherData(city).then(() => {
-            this._locationInputView.setWeatherData(this._weatherHelper.weatherData);
-            this.render()
-
+        this._weahterApi.updateWeatherData(city).then(() => {
+            this._locationInputView.setWeatherData(this._weahterApi.weatherData);
         });
     }
 }

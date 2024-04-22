@@ -4,15 +4,16 @@ export default class TruckInfo {
      * @param { string } textContent
      * @returns { HTMLElement }
      */
-    constructor(callBack, truck) {
+    constructor(callBack, truck, index) {
         const container = document.createElement('div');
         container.className = 'bg-gray-400 rounded p-2 flex justify-between items-center';
 
         const innerDiv = document.createElement('div');
+        innerDiv.className = 'space-x-1'
 
         const sizeSpan = document.createElement('span');
         sizeSpan.id = 'size';
-        sizeSpan.textContent = `Maat: ${truck.length} x ${truck.width} `;
+        sizeSpan.textContent = `Maat: ${truck.length} x ${truck.width}`;
         innerDiv.appendChild(sizeSpan);
 
         const arrivalSpan = document.createElement('span');
@@ -30,8 +31,7 @@ export default class TruckInfo {
         const icon = document.createElement('i');
         icon.className = 'fa-solid fa-xmark';
         icon.addEventListener('click', e => {
-            const buttonId = e.target.id;
-            callBack(buttonId);        
+            callBack(index);        
         });
         container.appendChild(icon);
       

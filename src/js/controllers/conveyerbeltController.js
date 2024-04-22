@@ -7,7 +7,7 @@ export default class ConveyerbeltController {
     }
 
     render() {
-        this._manageConveyerBeltsView = new ManageConveyerBeltsView(this.addConveyerbelt.bind(this), this.removeConveyerbelt.bind(this)); 
+        this._manageConveyerBeltsView = new ManageConveyerBeltsView(this.addConveyerbelt.bind(this), this.removeConveyerbelt.bind(this), 'section-left'); 
         document.getElementById('conveyerBeltsCount').textContent = " NO of Belt" + this._transport.activeLoadingHall.conveyorBelts.length
     }
 

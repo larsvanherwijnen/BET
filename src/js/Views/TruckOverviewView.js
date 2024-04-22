@@ -1,27 +1,33 @@
-import { TruckInfo } from '../modules.js';
+import { TruckInfo, createElement, clear, getById, SectionTitle } from '../modules.js';
 
 export default class TruckOverviewView {
 
-    constructor(callback, trucks) {
+    constructor(callback, trucks, sectionId) {
         this._trucks = trucks;
-        this._callback = callback
+        this._callback = callback;
+        this._sectionId = sectionId;
         this._wrapperElementId = 'existingTrucks';
-        this.render();
+        this.render()
     }
 
     /**
      * Renders the LoadingHallSwitcher component.
      */
     render() {
-        const wrapperElement = document.getElementById(this._wrapperElementId)
-
-        if(wrapperElement) {
-            wrapperElement.innerHTML = '';
-        }
-        
-        for (const truck of this._trucks) {
-            const truckOverviewView = new TruckInfo(this._callback.bind(this), truck)
+        clear(this._wrapperElementId);
+        const targetElement = getById(this._sectionId);
+    
+        const wrapperElement = createElement('div');
+        wrapperElement.appendChild(new SectionTitle("Vrachtwagens"))
+        wrapperElement.className = 'space-y-2'
+        wrapperElement.id = this._wrapperElementId;
+    
+        this._trucks.forEach((truck, index) => {
+            const truckOverviewView = new TruckInfo(this._callback.bind(this), truck, index);
             wrapperElement.appendChild(truckOverviewView);
-        }
+        });
+    
+
+        targetElement.insertBefore(wrapperElement, targetElement.children[1]);
     }
 }

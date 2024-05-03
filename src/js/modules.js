@@ -27,6 +27,7 @@ import Input from "./Views/Component/Input.js"
 import SelectInput from "./Views/Component/SelectInput.js"
 import SectionTitle from "./Views/Component/SectionTitle.js"
 import TruckInfo from "./Views/Component/TruckInfo.js"
+import TruckView from "./Views/TruckView.js"
 
 //API
 import WeatherApi from "./Services/weather.js"
@@ -57,6 +58,7 @@ export {
     SectionTitle,
     SelectInput,
     TruckInfo,
+    TruckView,
 
     WeatherApi,
 

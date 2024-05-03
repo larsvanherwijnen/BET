@@ -12,7 +12,7 @@ export default class TruckForm {
         this._fields = [
             {
                 'width': { 'type': 'number', 'min': 2, 'max': 6, 'label': 'Breedte' },
-                'lenght': { 'type': 'number', 'min': 2, 'max': 3, 'label': 'Lengte' },
+                'length': { 'type': 'number', 'min': 2, 'max': 3, 'label': 'Lengte' },
             },
             {
                 'truckType': { 'type': 'select', 'options': TruckType, 'default': TruckType.General ,'label': 'Type' },

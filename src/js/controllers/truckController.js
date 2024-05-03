@@ -1,4 +1,4 @@
-import { Truck, TruckForm, TruckType, TruckOverviewView, getById} from "../modules.js";
+import { TruckView, Truck, TruckForm, TruckType, TruckOverviewView, getById} from "../modules.js";
 
 
 export default class TruckController {
@@ -6,7 +6,7 @@ export default class TruckController {
         this._betTransport = betTransport;
 
         this._betTransport.activeLoadingHall.addTruck(new Truck(2, 3, 2, TruckType.Cold));
-        this._betTransport.activeLoadingHall.addTruck(new Truck(3, 6, 3, TruckType.Fast));
+        this._betTransport.activeLoadingHall.addTruck(new Truck(6, 3, 3, TruckType.Fast));
         this._betTransport.loadingHalls[1].addTruck(new Truck(2, 3, 2, TruckType.Fragile));
         this._betTransport.loadingHalls[1].addTruck(new Truck(3, 5, 3, TruckType.Pallets));
 
@@ -21,6 +21,8 @@ export default class TruckController {
             this._betTransport.activeLoadingHall.getTrucks(),
             'section-left'
         );
+        this.displayTrucksInLoadingHall();
+
     }
 
     removeTruck(truckId) {
@@ -28,15 +30,26 @@ export default class TruckController {
         this.render();
     }
 
-    createTruck() {  
+    createTruck() {
         const truck = new Truck(
-            getById('width').value, 
-            getById('lenght').value, 
+            getById('width').value,
+            getById('length').value,
             getById('interval').value,
             TruckType[getById('truckType').value]
         );
 
         this._betTransport.activeLoadingHall.addTruck(truck);
         this.render();
+    }
+
+    displayTrucksInLoadingHall() {
+        const trucks = this._betTransport.activeLoadingHall.getTrucks();
+        const loadingHallElement = document.getElementById('loadingHall');
+        loadingHallElement.innerHTML = '';
+
+        const truckView = new TruckView();
+        trucks.forEach((truck) => {
+            truckView.displayGrid(truck, loadingHallElement);
+        });
     }
 }

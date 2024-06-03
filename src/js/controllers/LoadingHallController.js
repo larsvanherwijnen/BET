@@ -1,4 +1,4 @@
-import  {LoadingHall, LoadingHallSwitcher, TruckController, ConveyerbeltController} from "../modules.js"
+import  {LoadingHall, LoadingHallSwitcher, TruckController, ConveyorBeltController} from "../modules.js"
 
 export default class LoadingHallController {
     constructor(transport) {
@@ -6,7 +6,7 @@ export default class LoadingHallController {
         this.initiateLoadingHalls(2);
         this.render();
         this._truckController = new TruckController(transport);
-        this._conveyerbeltController = new ConveyerbeltController(transport)
+        this._conveyerbeltController = new ConveyorBeltController(transport)
 
     }
 

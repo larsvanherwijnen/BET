@@ -29,7 +29,6 @@ export default class TruckView {
 
                 // Append the cell to the truck grid
                 truckGrid.appendChild(cell);
-                console.log(truckGrid);
             }
         }
 

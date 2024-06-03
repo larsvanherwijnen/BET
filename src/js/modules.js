@@ -6,7 +6,7 @@
 import MainController from "./controllers/MainController.js"
 import LoadingHallController from "./Controllers/LoadingHallController.js"
 import TruckController from "./Controllers/TruckController.js"
-import ConveyerbeltController from "./Controllers/ConveyerbeltController.js"
+import ConveyorBeltController from "./Controllers/ConveyerbeltController.js"
 
 // Models
 import BetTransport from "./Models/BetTransport.js"
@@ -14,13 +14,13 @@ import LoadingHall from "./Models/LoadingHall.js"
 import Truck from "./models/truck.js"
 import TruckForm from "./Views/TruckCreateFormView.js"
 import TruckType from "./Enums/TruckTypes.js"
-import ConveyerBelt from "./Models/Conveyerbelt.js"
+import ConveyorBelt from "./models/ConveyorBelt.js"
 
 //Views
 import LoadingHallSwitcher from "./Views/LoadingHallSwitcherView.js"
 import LocationInputView from "./Views/LocationInputView.js"
 import TruckOverviewView from "./Views/TruckOverviewView.js"
-import ManageConveyerBeltsView from "./Views/ManageConveyerBeltsView.js"
+import ManageConveyorBeltsView from "./Views/ManageConveyerBeltsView.js"
 //Components
 import Button from "./Views/Component/Button.js"
 import Input from "./Views/Component/Input.js"
@@ -39,19 +39,19 @@ export {
     MainController,
     LoadingHallController,
     TruckController,
-    ConveyerbeltController,
+    ConveyorBeltController,
 
 
     LoadingHall,
     BetTransport,
     Truck,
     TruckForm,
-    ConveyerBelt,
+    ConveyorBelt,
 
     LoadingHallSwitcher,
     LocationInputView,
     TruckOverviewView,
-    ManageConveyerBeltsView,
+    ManageConveyorBeltsView,
 
     Button,
     Input,

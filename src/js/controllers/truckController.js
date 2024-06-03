@@ -22,7 +22,6 @@ export default class TruckController {
             'section-left'
         );
         this.displayTrucksInLoadingHall();
-
     }
 
     removeTruck(truckId) {
@@ -38,7 +37,19 @@ export default class TruckController {
             TruckType[getById('truckType').value]
         );
 
-        this._betTransport.activeLoadingHall.addTruck(truck);
+        // Find the first conveyor belt with a free dock
+        for (let i = 0; i < this._betTransport.activeLoadingHall.conveyorBelts.length; i++) {
+            const conveyorBelt = this._betTransport.activeLoadingHall.conveyorBelts[i];
+            const freeDockIndex = conveyorBelt.docks.findIndex(dock => dock === null);
+
+            if (freeDockIndex !== -1) {
+                // Found a free dock, add the truck to this dock
+                conveyorBelt.addTruckToDock(truck, freeDockIndex);
+                this._betTransport.activeLoadingHall.addTruck(truck);
+                break;
+            }
+        }
+
         this.render();
     }
 

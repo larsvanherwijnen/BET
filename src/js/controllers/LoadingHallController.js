@@ -5,8 +5,8 @@ export default class LoadingHallController {
         this._transport = transport;
         this.initiateLoadingHalls(2);
         this.render();
-        this._truckController = new TruckController(transport);
         this._conveyerbeltController = new ConveyorBeltController(transport)
+        this._truckController = new TruckController(transport);
 
     }
 
@@ -30,7 +30,7 @@ export default class LoadingHallController {
         this._transport.activeLoadingHall = id;
         this.render();
         this._truckController.render();
-                this._conveyerbeltController.render();
+        this._conveyerbeltController.render();
 
     }
 

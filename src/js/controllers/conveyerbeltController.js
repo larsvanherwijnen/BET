@@ -1,20 +1,28 @@
-import {ConveyorBelt, ManageConveyorBeltsView} from "../modules.js";
+import {TruckView, ConveyorBelt, ManageConveyorBeltsView, Truck, TruckType} from "../modules.js";
 
 export default class ConveyorBeltController {
     constructor(transport) {
         this._transport = transport;
+
+        const originalLoadingHall = this._transport.activeLoadingHall;
+        this._transport.activeLoadingHall = this._transport.loadingHalls[0].id;
+        this.addConveyorBelt();
+        this._transport.activeLoadingHall = this._transport.loadingHalls[1].id;
+        this.addConveyorBelt();
+        this._transport.activeLoadingHall = originalLoadingHall.id;
+
+        new ManageConveyorBeltsView(this.addConveyorBelt.bind(this), this.removeConveyorBelt.bind(this), 'section-left');
         this.render();
     }
 
     render() {
         this.createConveyorBeltsContainer();
         this.renderConveyorBelts();
-        this.updateConveyorBeltCount();
     }
 
     addConveyorBelt() {
         const beltId = this._transport.activeLoadingHall.conveyorBelts.length + 1;
-        const newBelt = new ConveyorBelt(beltId, { x: 50 * beltId, y: 100 });
+        const newBelt = new ConveyorBelt(beltId, this.render.bind(this));
         this._transport.activeLoadingHall.conveyorBelts.push(newBelt);
         this.render();
     }
@@ -28,14 +36,11 @@ export default class ConveyorBeltController {
             loadingHall.appendChild(container);
         }
     }
+
     removeConveyorBelt() {
         this._transport.activeLoadingHall.conveyorBelts.pop();
         this.render();
     }
-
-    updateConveyorBeltCount() {
-        this._manageConveyerBeltsView = new ManageConveyorBeltsView(this.addConveyorBelt.bind(this), this.removeConveyorBelt.bind(this), 'section-left');
-        document.getElementById('conveyerBeltsCount').textContent = " NO of Belt" + this._transport.activeLoadingHall.conveyorBelts.length    }
 
     renderConveyorBelts() {
         const container = document.getElementById('conveyorBeltsContainer');
@@ -54,11 +59,16 @@ export default class ConveyorBeltController {
         const docksDiv = document.createElement('div');
         docksDiv.classList.add('docks', 'flex', 'justify-between', 'mb-2');
 
+
+        const truckView = new TruckView();
+
         conveyorBelt.docks.forEach((dock, index) => {
             const dockDiv = document.createElement('div');
-            dockDiv.classList.add('dock', 'inline-block', 'w-48', 'h-48', 'border', 'border-black', 'm-2', 'bg-gray-300', 'rounded');
+            dockDiv.classList.add('dock', 'flex-grow', 'm-2', 'rounded', 'h-64');
+            dockDiv.style.flexBasis = '0'; // Add this line
             if (dock !== null) {
-                dockDiv.classList.add('bg-blue-500'); // Indicate occupied dock
+                // Display the truck in the dock
+                truckView.displayGrid(dock, dockDiv);
             }
 
             docksDiv.appendChild(dockDiv);

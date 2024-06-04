@@ -5,12 +5,21 @@ export default class TruckController {
     constructor(betTransport) {
         this._betTransport = betTransport;
 
-        this._betTransport.activeLoadingHall.addTruck(new Truck(2, 3, 2, TruckType.Cold));
-        this._betTransport.activeLoadingHall.addTruck(new Truck(6, 3, 3, TruckType.Fast));
-        this._betTransport.loadingHalls[1].addTruck(new Truck(2, 3, 2, TruckType.Fragile));
-        this._betTransport.loadingHalls[1].addTruck(new Truck(3, 5, 3, TruckType.Pallets));
+        const originalLoadingHall = this._betTransport.activeLoadingHall;
 
-        this.render()
+        this._betTransport.activeLoadingHall = this._betTransport.loadingHalls[0].id;
+        // Add two trucks to the first loading hall
+        this.addTruckToDock( new Truck(3, 3, 2, TruckType.Cold));
+        this.addTruckToDock( new Truck(6, 3, 3, TruckType.Fast));
+
+        this._betTransport.activeLoadingHall = this._betTransport.loadingHalls[1].id;
+        // Add two trucks to the second loading hall
+        this.addTruckToDock( new Truck(5, 3, 2, TruckType.Fragile));
+        this.addTruckToDock( new Truck(4, 3, 3, TruckType.Pallets));
+
+        this._betTransport.activeLoadingHall = originalLoadingHall.id;
+
+        this.render();
     }
 
 
@@ -21,11 +30,28 @@ export default class TruckController {
             this._betTransport.activeLoadingHall.getTrucks(),
             'section-left'
         );
-        this.displayTrucksInLoadingHall();
     }
 
-    removeTruck(truckId) {
-        this._betTransport.activeLoadingHall.removeTruck(truckId);
+    removeTruck(truckIndex) {
+        // Get the truck to be removed
+        const truckToRemove = this._betTransport.activeLoadingHall.getTrucks()[truckIndex];
+
+        // Find the conveyor belt and dock where the truck is located
+        for (let i = 0; i < this._betTransport.activeLoadingHall.conveyorBelts.length; i++) {
+            const conveyorBelt = this._betTransport.activeLoadingHall.conveyorBelts[i];
+            for (let j = 0; j < conveyorBelt.docks.length; j++) {
+                if (conveyorBelt.docks[j] === truckToRemove) {
+                    // Found the dock, remove the truck from this dock
+                    conveyorBelt.removeTruckFromDock(j);
+                    break;
+                }
+            }
+        }
+
+        // Remove the truck from the active loading hall
+        this._betTransport.activeLoadingHall.removeTruck(truckIndex);
+
+        // Render the updated state
         this.render();
     }
 
@@ -37,6 +63,11 @@ export default class TruckController {
             TruckType[getById('truckType').value]
         );
 
+        this.addTruckToDock(truck);
+
+    }
+
+    addTruckToDock(truck) {
         // Find the first conveyor belt with a free dock
         for (let i = 0; i < this._betTransport.activeLoadingHall.conveyorBelts.length; i++) {
             const conveyorBelt = this._betTransport.activeLoadingHall.conveyorBelts[i];
@@ -49,18 +80,20 @@ export default class TruckController {
                 break;
             }
         }
-
         this.render();
     }
 
-    displayTrucksInLoadingHall() {
-        const trucks = this._betTransport.activeLoadingHall.getTrucks();
-        const loadingHallElement = document.getElementById('loadingHall');
-        loadingHallElement.innerHTML = '';
+    addTruckToDockInLoadingHall(loadingHall, truck) {
+        // Store the original active loading hall
+        const originalLoadingHall = this._betTransport.activeLoadingHall;
 
-        const truckView = new TruckView();
-        trucks.forEach((truck) => {
-            truckView.displayGrid(truck, loadingHallElement);
-        });
+        // Set the active loading hall to the provided loading hall
+        this._betTransport.activeLoadingHall = loadingHall.id;
+
+        // Add the truck to a dock in the active loading hall
+        this.addTruckToDock(truck);
+
+        // Reset the active loading hall to its original value
+        this._betTransport.activeLoadingHall = originalLoadingHall.id;
     }
 }

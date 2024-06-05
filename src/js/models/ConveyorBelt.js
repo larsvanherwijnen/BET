@@ -3,7 +3,8 @@ export default class ConveyorBelt {
     constructor(id, rerenderCallback) {
         this.id = id;
         this.rerenderCallback = rerenderCallback; // Callback for rerendering
-        this.docks = Array(3).fill(null); // Initialize with 3 empty docks
+        this.packages = [];
+        this.docks = Array(3).fill(null); // Initialize 3 empty docks
     }
 
     addTruckToDock(truck, dockIndex) {
@@ -11,6 +12,11 @@ export default class ConveyorBelt {
             this.docks[dockIndex] = truck;
             this.rerenderCallback();
         }
+    }
+
+    addPackage(parcel) {
+        this.packages.push(parcel);
+        this.rerenderCallback();
     }
 
     removeTruckFromDock(dockIndex) {

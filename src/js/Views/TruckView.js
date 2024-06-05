@@ -6,7 +6,7 @@ export default class TruckView {
 
         // Create a new div for the truck grid
         const truckGrid = document.createElement('div');
-        truckGrid.classList.add(`grid`, `grid-cols-${truck.width}`, 'gap-0');
+        truckGrid.classList.add('grid', `grid-cols-${truck.width}`, 'gap-0');
 
         // Use the get width() and get length() methods from the Truck class
         const truckWidth = truck.width;
@@ -16,16 +16,27 @@ export default class TruckView {
         for (let i = 0; i < truckLength; i++) {
             for (let j = 0; j < truckWidth; j++) {
                 const cell = document.createElement('div');
-                cell.classList.add('w-20', 'h-20', 'border', 'border-black', 'box-border', 'bg-red-500');
+                cell.classList.add('w-16', 'h-16', 'border', 'border-black', 'box-border', 'bg-red-500');
 
-                // If the cell is filled, add a 'filled' class
-                // if (truck.grid[i][j] === 1) {
-                //     cell.classList.add('filled', 'bg-black-500');
-                // }
-                //
-                // Make the cell droppable
-                // cell.ondragover = this.allowDrop;
-                // cell.ondrop = (event) => this.drop(event, i, j, truck);
+                // Set up drag-and-drop event listeners
+                cell.addEventListener('dragover', (event) => {
+                    event.preventDefault();
+                });
+
+                cell.addEventListener('drop', (event) => {
+                    event.preventDefault();
+                    const data = event.dataTransfer.getData('text/plain');
+                    const packageElement = document.getElementById(data);
+                    if (packageElement) {
+                        // Get the package shape and recolor the corresponding cells in the truck grid
+                        const packageShape = JSON.parse(packageElement.dataset.shape);
+                        if (this.canPlacePackage(truckGrid, packageShape, i, j, truckWidth)) {
+                            console.log('Can place package');
+                            this.recolorGrid(truckGrid, packageShape, i, j, truckWidth);
+                        }
+                        // this.recolorGrid(truckGrid, packageShape, i, j, truckWidth);
+                    }
+                });
 
                 // Append the cell to the truck grid
                 truckGrid.appendChild(cell);
@@ -37,5 +48,35 @@ export default class TruckView {
 
         // Append the truck container to the trucks container
         trucksContainer.appendChild(truckContainer);
+    }
+
+    recolorGrid(truckGrid, packageShape, startRow, startCol, truckWidth) {
+        for (let row = 0; row < packageShape.length; row++) {
+            for (let col = 0; col < packageShape[row].length; col++) {
+                if (packageShape[row][col] === 1) {
+                    const cellIndex = (startRow + row) * truckWidth + (startCol + col);
+                    const cell = truckGrid.children[cellIndex];
+                    if (cell) {
+                        cell.classList.add('bg-blue-500');
+                        cell.classList.remove('bg-red-500');
+                    }
+                }
+            }
+        }
+    }
+
+    canPlacePackage(truckGrid, packageShape, startRow, startCol, truckWidth) {
+        for (let row = 0; row < packageShape.length; row++) {
+            for (let col = 0; col < packageShape[row].length; col++) {
+                if (packageShape[row][col] === 1) {
+                    const cellIndex = (startRow + row) * truckWidth + (startCol + col);
+                    const cell = truckGrid.children[cellIndex];
+                    if (!cell || cell.classList.contains('bg-blue-500')) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
     }
 }

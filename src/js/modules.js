@@ -15,6 +15,8 @@ import Truck from "./models/truck.js"
 import TruckForm from "./Views/TruckCreateFormView.js"
 import TruckType from "./Enums/TruckTypes.js"
 import ConveyorBelt from "./models/ConveyorBelt.js"
+import Package from "./models/Package.js";
+import PackageShape from "./models/PackageShape.js";
 
 //Views
 import LoadingHallSwitcher from "./Views/LoadingHallSwitcherView.js"
@@ -47,6 +49,8 @@ export {
     Truck,
     TruckForm,
     ConveyorBelt,
+    Package,
+    PackageShape,
 
     LoadingHallSwitcher,
     LocationInputView,

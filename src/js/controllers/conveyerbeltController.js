@@ -1,4 +1,5 @@
-import {TruckView, ConveyorBelt, ManageConveyorBeltsView, Truck, TruckType} from "../modules.js";
+import {PackageShape, Package, TruckView, ConveyorBelt, ManageConveyorBeltsView, Truck, TruckType} from "../modules.js";
+import PackageView from "../Views/PackageView.js";
 
 export default class ConveyorBeltController {
     constructor(transport) {
@@ -10,8 +11,10 @@ export default class ConveyorBeltController {
         this._transport.activeLoadingHall = this._transport.loadingHalls[1].id;
         this.addConveyorBelt();
         this._transport.activeLoadingHall = originalLoadingHall.id;
-
         new ManageConveyorBeltsView(this.addConveyorBelt.bind(this), this.removeConveyorBelt.bind(this), 'section-left');
+
+        this.shapes = new PackageShape();
+        this.generatePackages();
         this.render();
     }
 
@@ -50,31 +53,49 @@ export default class ConveyorBeltController {
         conveyorBelts.forEach(belt => {
             this.renderConveyorBelt(container, belt);
         });
+
     }
 
     renderConveyorBelt(container, conveyorBelt) {
         const beltDiv = document.createElement('div');
-        beltDiv.classList.add('conveyor-belt', 'relative', 'bg-gray-600', 'my-4', 'p-12', 'rounded');
+        beltDiv.classList.add('conveyor-belt', 'relative', 'bg-gray-600', 'my-4', 'p-2', 'rounded', 'flex', 'flex-wrap', 'justify-between'); // Add 'flex', 'flex-wrap', 'justify-between'
+        beltDiv.style.height = '150px';
 
         const docksDiv = document.createElement('div');
         docksDiv.classList.add('docks', 'flex', 'justify-between', 'mb-2');
+        container.appendChild(docksDiv);
+        container.appendChild(beltDiv);
 
 
         const truckView = new TruckView();
 
         conveyorBelt.docks.forEach((dock, index) => {
             const dockDiv = document.createElement('div');
-            dockDiv.classList.add('dock', 'flex-grow', 'm-2', 'rounded', 'h-64');
-            dockDiv.style.flexBasis = '0'; // Add this line
+            dockDiv.classList.add('dock', 'flex-grow', 'm-2', 'rounded', 'h-48');
+            dockDiv.style.flexBasis = '0';
             if (dock !== null) {
                 // Display the truck in the dock
                 truckView.displayGrid(dock, dockDiv);
             }
-
             docksDiv.appendChild(dockDiv);
         });
 
-        container.appendChild(docksDiv);
-        container.appendChild(beltDiv);
+        conveyorBelt.packages.forEach(parcel => {
+            const containerHeight = beltDiv.offsetHeight;
+            const packageView = new PackageView(parcel, containerHeight);
+            const packageElement = packageView.render();
+            beltDiv.appendChild(packageElement);
+        });
+
+    }
+
+    generatePackages() {
+        const shapeKeys = Object.keys(this.shapes);
+        for (let i = 0; i < 10; i++) {
+            const randomShapeKey = shapeKeys[Math.floor(Math.random() * shapeKeys.length)];
+            const randomShape = this.shapes[randomShapeKey];
+            const parcel = new Package(`package${i}`, randomShape);
+            this._transport.conveyorBelts[0].addPackage(parcel);
+        }
     }
 }

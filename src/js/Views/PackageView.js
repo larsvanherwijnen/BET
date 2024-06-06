@@ -2,14 +2,19 @@ export default class PackageView {
     constructor(parcel, containerHeight) {
         this.package = parcel;
         this.containerHeight = containerHeight * 0.7; // Height of the container in pixels (70% of the container height)
+        this.fixedPackageWidth = 120; // Set a fixed width for all packages (adjust as needed)
     }
 
     render() {
         const packageElement = document.createElement('div');
+        if (this.package == null) {
+            return packageElement;
+        }
         packageElement.id = this.package.id;
         packageElement.dataset.shape = JSON.stringify(this.package.shape);
         packageElement.classList.add('package', 'flex', 'justify-center', 'items-center', 'bg-transparent');
         packageElement.draggable = true;
+        packageElement.style.width = `${this.fixedPackageWidth}px`;
 
         // Calculate the number of rows and columns in the package shape
         const numRows = this.package.shape.length;

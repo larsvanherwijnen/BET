@@ -5,6 +5,9 @@ export default class ConveyorBeltController {
     constructor(transport) {
         this._transport = transport;
 
+        this.maxAmountOfConveyorBelts = 3;
+        this.amountOfPackages = 10;
+
         const originalLoadingHall = this._transport.activeLoadingHall;
         this._transport.activeLoadingHall = this._transport.loadingHalls[0].id;
         this.addConveyorBelt();
@@ -12,9 +15,6 @@ export default class ConveyorBeltController {
         this.addConveyorBelt();
         this._transport.activeLoadingHall = originalLoadingHall.id;
         new ManageConveyorBeltsView(this.addConveyorBelt.bind(this), this.removeConveyorBelt.bind(this), 'section-left');
-
-        this.shapes = new PackageShape();
-        this.generatePackages();
         this.render();
     }
 
@@ -58,6 +58,7 @@ export default class ConveyorBeltController {
 
     renderConveyorBelt(container, conveyorBelt) {
         const beltDiv = document.createElement('div');
+        beltDiv.id = `conveyorBelt${conveyorBelt.id}`;
         beltDiv.classList.add('conveyor-belt', 'relative', 'bg-gray-600', 'my-4', 'p-2', 'rounded', 'flex', 'flex-wrap', 'justify-between'); // Add 'flex', 'flex-wrap', 'justify-between'
         beltDiv.style.height = '150px';
 
@@ -75,7 +76,7 @@ export default class ConveyorBeltController {
             dockDiv.style.flexBasis = '0';
             if (dock !== null) {
                 // Display the truck in the dock
-                truckView.displayGrid(dock, dockDiv);
+                truckView.displayGrid(dock, dockDiv, this.removePackageFromConveyorBelt.bind(this));
             }
             docksDiv.appendChild(dockDiv);
         });
@@ -89,13 +90,11 @@ export default class ConveyorBeltController {
 
     }
 
-    generatePackages() {
-        const shapeKeys = Object.keys(this.shapes);
-        for (let i = 0; i < 10; i++) {
-            const randomShapeKey = shapeKeys[Math.floor(Math.random() * shapeKeys.length)];
-            const randomShape = this.shapes[randomShapeKey];
-            const parcel = new Package(`package${i}`, randomShape);
-            this._transport.conveyorBelts[0].addPackage(parcel);
-        }
+
+    removePackageFromConveyorBelt(packageId) {
+        console.log('Removing package with id:', packageId);
+        this._transport.activeLoadingHall.conveyorBelts.forEach(belt => {
+            belt.removePackage(packageId);
+        });
     }
 }

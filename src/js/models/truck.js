@@ -4,6 +4,7 @@ export default class Truck {
         this._length = length;
         this._arrivalInterval = arrivalInterval;
         this._type = type;
+        this._filledParts = Array.from({ length: this._length }, () => Array(this._width).fill(false));
     }
 
 

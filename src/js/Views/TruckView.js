@@ -1,5 +1,5 @@
 export default class TruckView {
-    displayGrid(truck, trucksContainer) {
+    displayGrid(truck, trucksContainer, removePackageCallBack) {
         // Create a new div for the truck container
         const truckContainer = document.createElement('div');
         truckContainer.classList.add('inline-block', 'm-4');
@@ -16,7 +16,8 @@ export default class TruckView {
         for (let i = 0; i < truckLength; i++) {
             for (let j = 0; j < truckWidth; j++) {
                 const cell = document.createElement('div');
-                cell.classList.add('w-16', 'h-16', 'border', 'border-black', 'box-border', 'bg-red-500');
+                cell.classList.add('w-16', 'h-16', 'border', 'border-black', 'box-border');
+                cell.classList.add(truck._filledParts[i][j] ? 'bg-blue-500' : 'bg-red-500');
 
                 // Set up drag-and-drop event listeners
                 cell.addEventListener('dragover', (event) => {
@@ -31,10 +32,10 @@ export default class TruckView {
                         // Get the package shape and recolor the corresponding cells in the truck grid
                         const packageShape = JSON.parse(packageElement.dataset.shape);
                         if (this.canPlacePackage(truckGrid, packageShape, i, j, truckWidth)) {
-                            console.log('Can place package');
-                            this.recolorGrid(truckGrid, packageShape, i, j, truckWidth);
+                            this.recolorGrid(truck, truckGrid, packageShape, i, j, truckWidth);
+                            // Remove the package from the conveyor belt
+                            removePackageCallBack(packageElement.id);
                         }
-                        // this.recolorGrid(truckGrid, packageShape, i, j, truckWidth);
                     }
                 });
 
@@ -50,7 +51,7 @@ export default class TruckView {
         trucksContainer.appendChild(truckContainer);
     }
 
-    recolorGrid(truckGrid, packageShape, startRow, startCol, truckWidth) {
+    recolorGrid(truck, truckGrid, packageShape, startRow, startCol, truckWidth) {
         for (let row = 0; row < packageShape.length; row++) {
             for (let col = 0; col < packageShape[row].length; col++) {
                 if (packageShape[row][col] === 1) {
@@ -59,6 +60,7 @@ export default class TruckView {
                     if (cell) {
                         cell.classList.add('bg-blue-500');
                         cell.classList.remove('bg-red-500');
+                        truck._filledParts[startRow + row][startCol + col] = true;
                     }
                 }
             }
@@ -66,6 +68,9 @@ export default class TruckView {
     }
 
     canPlacePackage(truckGrid, packageShape, startRow, startCol, truckWidth) {
+        if (startRow + packageShape.length > truckWidth || startCol + packageShape[0].length > truckWidth) {
+            return false;
+        }
         for (let row = 0; row < packageShape.length; row++) {
             for (let col = 0; col < packageShape[row].length; col++) {
                 if (packageShape[row][col] === 1) {

@@ -1,4 +1,4 @@
-import { PackageShape, Package } from "../modules.js";
+import { PackageShape, Package, getById } from "../modules.js";
 
 export default class ConveyorBelt {
     constructor(id, rerenderCallback) {
@@ -31,7 +31,7 @@ export default class ConveyorBelt {
         if (index > -1) {
             // Immediately remove the package to be dragged
             this.packages.splice(index, 1);
-            const packageElement = document.getElementById(packageId);
+            const packageElement = getById(packageId);
             packageElement.style.opacity = '0';
             this.updatePackagePositions(index);
             // Add a new package at the beginning of the array after the animation

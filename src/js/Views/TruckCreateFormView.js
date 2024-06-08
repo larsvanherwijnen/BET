@@ -30,7 +30,7 @@ export default class TruckForm {
         const targetElement = getById(this._sectionId);
 
         const wrapperElement = createElement('div')
-        wrapperElement.appendChild(new SectionTitle("Formulier"))
+        wrapperElement.appendChild(new SectionTitle("Vrachtwagen toevoegen"))
         wrapperElement.id = this._wrapperElementId;
 
         const form = createElement('form');
@@ -61,7 +61,7 @@ export default class TruckForm {
 
         wrapperElement.appendChild(form)
 
-        targetElement.insertBefore(wrapperElement, targetElement.children[1]);
+        targetElement.insertBefore(wrapperElement, targetElement.children[2]);
 
         this._steps = getElementsByClassName('step')
 

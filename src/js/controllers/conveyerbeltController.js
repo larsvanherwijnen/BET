@@ -1,14 +1,4 @@
-import {
-    PackageShape,
-    Package,
-    TruckView,
-    ConveyorBelt,
-    ManageConveyorBeltsView,
-    Truck,
-    TruckType,
-    getById
-} from "../modules.js";
-import PackageView from "../Views/PackageView.js";
+import {PackageView, TruckView, ConveyorBelt, ManageConveyorBeltsView, getById, createElement} from "../modules.js";
 
 export default class ConveyorBeltController {
     constructor(transport) {
@@ -37,22 +27,23 @@ export default class ConveyorBeltController {
     }
 
     createConveyorBeltsContainer() {
-        let container = document.getElementById('conveyorBeltsContainer');
-        const loadingHall = document.getElementById('loadingHall');
+        let container = getById('conveyorBeltsContainer');
+        const loadingHall = getById('loadingHall');
         if (!container) {
-            container = document.createElement('div');
+            container = createElement('div');
             container.id = 'conveyorBeltsContainer';
             loadingHall.appendChild(container);
         }
     }
 
     removeConveyorBelt() {
+        if(this._transport.activeLoadingHall.conveyorBelts.length === 1) return;
         this._transport.activeLoadingHall.conveyorBelts.pop();
         this.render();
     }
 
     renderConveyorBelts() {
-        const container = document.getElementById('conveyorBeltsContainer');
+        const container = getById('conveyorBeltsContainer');
         container.innerHTML = ''; // Clear existing content
 
         const conveyorBelts = this._transport.activeLoadingHall.conveyorBelts;
@@ -63,12 +54,12 @@ export default class ConveyorBeltController {
     }
 
     renderConveyorBelt(container, conveyorBelt) {
-        const beltDiv = document.createElement('div');
+        const beltDiv = createElement('div');
         beltDiv.id = `conveyorBelt${conveyorBelt.id}`;
         beltDiv.classList.add('conveyor-belt', 'relative', 'bg-gray-600', 'my-4', 'p-2', 'rounded', 'flex', 'flex-wrap', 'justify-between'); // Add 'flex', 'flex-wrap', 'justify-between'
         beltDiv.style.height = '150px';
 
-        const docksDiv = document.createElement('div');
+        const docksDiv = createElement('div');
         docksDiv.classList.add('docks', 'flex', 'justify-between', 'mb-2');
         container.appendChild(docksDiv);
         container.appendChild(beltDiv);
@@ -77,7 +68,7 @@ export default class ConveyorBeltController {
         const truckView = new TruckView();
 
         conveyorBelt.docks.forEach((dock, index) => {
-            const dockDiv = document.createElement('div');
+            const dockDiv = createElement('div');
             dockDiv.classList.add('dock', 'flex-grow', 'm-2', 'rounded', 'h-48');
             dockDiv.style.flexBasis = '0';
             if (dock !== null) {

@@ -12,8 +12,6 @@ export default class LoadingHallController {
 
     render() {
         this._loadingHallSwitcherView = new LoadingHallSwitcher(this._transport.loadingHalls, this.switchLoadingHall.bind(this), 'section-left'); 
-        document.getElementById('loadingHall').textContent = this._transport.activeLoadingHall.name;
-
     }
 
     initiateLoadingHalls(amountLoadingHalls) {
@@ -31,7 +29,6 @@ export default class LoadingHallController {
         this.render();
         this._truckController.render();
         this._conveyerbeltController.render();
-
     }
 
 }

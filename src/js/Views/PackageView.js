@@ -6,44 +6,62 @@ export default class PackageView {
     }
 
     render() {
-        const packageElement = document.createElement('div');
-        if (this.package == null) {
-            return packageElement;
-        }
+        const packageElement = this.createPackageElement();
+        if (!this.package) return packageElement;
+
+        this.setPackageProperties(packageElement);
+        this.createPackageShape(packageElement);
+
+        packageElement.addEventListener('dragstart', e => e.dataTransfer.setData('text/plain', e.target.id));
+
+        return packageElement;
+    }
+
+    setPackageProperties(packageElement) {
         packageElement.id = this.package.id;
         packageElement.dataset.shape = JSON.stringify(this.package.shape);
         packageElement.classList.add('package', 'flex', 'justify-center', 'items-center', 'bg-transparent');
         packageElement.draggable = true;
         packageElement.style.width = `${this.fixedPackageWidth}px`;
+    }
 
-        // Calculate the number of rows and columns in the package shape
-        const numRows = this.package.shape.length;
-        const numCols = this.package.shape[0].length;
-
-        // Calculate max size of cells to fit in container height
-        const cellSize = this.containerHeight / Math.max(numRows, numCols); // Ensure square cells
-
-        // Transpose the shape matrix
-        const transposedShape = this.package.shape[0].map((_, i) => this.package.shape.map(row => row[i]));
+    createPackageShape(packageElement) {
+        const cellSize = this.calculateCellSize();
+        const transposedShape = this.transposeShape();
 
         transposedShape.forEach(column => {
-            const columnElement = document.createElement('div');
-            columnElement.classList.add('column', 'flex', 'flex-col', 'justify-center', 'items-center');
-            column.forEach(cell => {
-                const cellElement = document.createElement('div');
-                cellElement.classList.add('cell', cell ? 'bg-blue-500' : 'bg-transparent');
-                cellElement.style.width = `${cellSize}px`;
-                cellElement.style.height = `${cellSize}px`;
-                cellElement.style.margin = '0.5px';
-                columnElement.appendChild(cellElement);
-            });
+            const columnElement = this.createColumnElement();
+            column.forEach(cell => columnElement.appendChild(this.createCellElement(cell, cellSize)));
             packageElement.appendChild(columnElement);
         });
+    }
 
-        packageElement.addEventListener('dragstart', (event) => {
-            event.dataTransfer.setData('text/plain', event.target.id);
-        });
+    calculateCellSize() {
+        const numRows = this.package.shape.length;
+        const numCols = this.package.shape[0].length;
+        return this.containerHeight / Math.max(numRows, numCols);
+    }
 
-        return packageElement;
+    transposeShape() {
+        return this.package.shape[0].map((_, i) => this.package.shape.map(row => row[i]));
+    }
+
+    createColumnElement() {
+        const columnElement = document.createElement('div');
+        columnElement.classList.add('column', 'flex', 'flex-col', 'justify-center', 'items-center');
+        return columnElement;
+    }
+
+    createCellElement(cell, cellSize) {
+        const cellElement = document.createElement('div');
+        cellElement.classList.add('cell', cell ? 'bg-blue-500' : 'bg-transparent');
+        cellElement.style.width = `${cellSize}px`;
+        cellElement.style.height = `${cellSize}px`;
+        cellElement.style.margin = '0.5px';
+        return cellElement;
+    }
+
+    createPackageElement() {
+        return document.createElement('div');
     }
 }

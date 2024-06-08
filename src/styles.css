@@ -1,0 +1,28 @@
+/* Animation for the truck leaving */
+@keyframes truckLeave {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-150%);
+        visibility: hidden; /* Truck becomes invisible at the end */
+    } /* Adjust as needed */
+}
+
+/* Animation for the truck coming back */
+@keyframes truckReturn {
+    0% { transform: translateY(-150%); }
+    100% { transform: translateY(0); } /* Adjust as needed */
+}
+
+.truck-leave {
+    animation-name: truckLeave;
+    animation-duration: 2s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards; /* Add this line */
+
+}
+
+.truck-return {
+    animation-name: truckReturn;
+    animation-duration: 2s;
+    animation-timing-function: ease-in-out;
+    visibility: visible; /* Add this line */
+}

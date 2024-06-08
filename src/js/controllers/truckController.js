@@ -1,6 +1,5 @@
 import { TruckView, Truck, TruckForm, TruckType, TruckOverviewView, getById} from "../modules.js";
 
-
 export default class TruckController {
     constructor(betTransport) {
         this._betTransport = betTransport;
@@ -9,13 +8,13 @@ export default class TruckController {
 
         this._betTransport.activeLoadingHall = this._betTransport.loadingHalls[0].id;
         // Add two trucks to the first loading hall
-        this.addTruckToDock( new Truck(3, 3, 2, TruckType.Cold));
-        this.addTruckToDock( new Truck(6, 3, 3, TruckType.Fast));
+        this.addTruckToDock(new Truck(`${Date.now()}_${Math.floor(Math.random() * 1000)}`, 3, 3, 2, TruckType.Cold));
+        this.addTruckToDock(new Truck(`${Date.now()}_${Math.floor(Math.random() * 1000)}`,6, 3, 3, TruckType.Fast));
 
         this._betTransport.activeLoadingHall = this._betTransport.loadingHalls[1].id;
         // Add two trucks to the second loading hall
-        this.addTruckToDock( new Truck(5, 3, 2, TruckType.Fragile));
-        this.addTruckToDock( new Truck(4, 3, 3, TruckType.Pallets));
+        this.addTruckToDock(new Truck(`${Date.now()}_${Math.floor(Math.random() * 1000)}`,5, 3, 2, TruckType.Fragile));
+        this.addTruckToDock(new Truck(`${Date.now()}_${Math.floor(Math.random() * 1000)}`,4, 3, 3, TruckType.Pallets));
 
         this._betTransport.activeLoadingHall = originalLoadingHall.id;
 
@@ -24,7 +23,7 @@ export default class TruckController {
 
 
     render() {
-        new TruckForm(this.createTruck.bind(this),'section-left')
+        new TruckForm(this.createTruck.bind(this), 'section-left')
         new TruckOverviewView(
             this.removeTruck.bind(this),
             this._betTransport.activeLoadingHall.getTrucks(),
@@ -57,6 +56,7 @@ export default class TruckController {
 
     createTruck() {
         const truck = new Truck(
+        `${Date.now()}_${Math.floor(Math.random() * 1000)}`,
             getById('width').value,
             getById('length').value,
             getById('interval').value,
@@ -64,7 +64,6 @@ export default class TruckController {
         );
 
         this.addTruckToDock(truck);
-
     }
 
     addTruckToDock(truck) {
@@ -81,19 +80,5 @@ export default class TruckController {
             }
         }
         this.render();
-    }
-
-    addTruckToDockInLoadingHall(loadingHall, truck) {
-        // Store the original active loading hall
-        const originalLoadingHall = this._betTransport.activeLoadingHall;
-
-        // Set the active loading hall to the provided loading hall
-        this._betTransport.activeLoadingHall = loadingHall.id;
-
-        // Add the truck to a dock in the active loading hall
-        this.addTruckToDock(truck);
-
-        // Reset the active loading hall to its original value
-        this._betTransport.activeLoadingHall = originalLoadingHall.id;
     }
 }

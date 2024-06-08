@@ -28,6 +28,6 @@ export default class TruckOverviewView {
         });
     
 
-        targetElement.insertBefore(wrapperElement, targetElement.children[1]);
+        targetElement.insertBefore(wrapperElement, targetElement.children[2]);
     }
 }

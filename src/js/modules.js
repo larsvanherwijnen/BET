@@ -23,6 +23,7 @@ import LoadingHallSwitcher from "./Views/LoadingHallSwitcherView.js"
 import LocationInputView from "./Views/LocationInputView.js"
 import TruckOverviewView from "./Views/TruckOverviewView.js"
 import ManageConveyorBeltsView from "./Views/ManageConveyerBeltsView.js"
+import AnimationToggle from "./Views/AnimationToggle.js"
 //Components
 import Button from "./Views/Component/Button.js"
 import Input from "./Views/Component/Input.js"
@@ -30,6 +31,7 @@ import SelectInput from "./Views/Component/SelectInput.js"
 import SectionTitle from "./Views/Component/SectionTitle.js"
 import TruckInfo from "./Views/Component/TruckInfo.js"
 import TruckView from "./Views/TruckView.js"
+import PackageView from "./Views/PackageView.js"
 
 //API
 import WeatherApi from "./Services/weather.js"
@@ -43,7 +45,6 @@ export {
     TruckController,
     ConveyorBeltController,
 
-
     LoadingHall,
     BetTransport,
     Truck,
@@ -56,6 +57,7 @@ export {
     LocationInputView,
     TruckOverviewView,
     ManageConveyorBeltsView,
+    AnimationToggle,
 
     Button,
     Input,
@@ -63,6 +65,7 @@ export {
     SelectInput,
     TruckInfo,
     TruckView,
+    PackageView,
 
     WeatherApi,
 

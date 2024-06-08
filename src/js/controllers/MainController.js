@@ -1,4 +1,4 @@
-import {WeatherApi, BetTransport, LoadingHallController, LocationInputView} from "../modules.js"
+import {WeatherApi, BetTransport, LoadingHallController, LocationInputView,AnimationToggle} from "../modules.js"
 
 export default class MainController {
     constructor() {
@@ -6,6 +6,8 @@ export default class MainController {
         new LoadingHallController(betTransport);
         this._weahterApi = new WeatherApi()
         this._locationInputView = new LocationInputView(this.handleLocationInput.bind(this), 'section-left');
+        this._animationsOn = true;
+        this._animationToggle = new AnimationToggle(this.AnimationToggle.bind(this), this._animationsOn, 'section-left');
     }
 
     handleLocationInput(city){
@@ -13,4 +15,10 @@ export default class MainController {
             this._locationInputView.setWeatherData(this._weahterApi.weatherData);
         });
     }
+
+    AnimationToggle(){
+        this._animationsOn = !this._animationsOn;
+        this._animationToggle.render(this._animationsOn);
+    }
+
 }

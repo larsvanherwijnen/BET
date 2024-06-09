@@ -1,8 +1,8 @@
 export default class PackageView {
     constructor(parcel, containerHeight) {
         this.package = parcel;
-        this.containerHeight = containerHeight * 0.7; // Height of the container in pixels (70% of the container height)
-        this.fixedPackageWidth = 120; // Set a fixed width for all packages (adjust as needed)
+        this.containerHeight = containerHeight * 0.7; 
+        this.fixedPackageWidth = 120; 
     }
 
     render() {

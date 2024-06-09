@@ -1,7 +1,6 @@
 import { TruckInfo, createElement, clear, getById, SectionTitle } from '../modules.js';
 
 export default class TruckOverviewView {
-
     constructor(callback, trucks, sectionId) {
         this._trucks = trucks;
         this._callback = callback;
@@ -10,9 +9,6 @@ export default class TruckOverviewView {
         this.render()
     }
 
-    /**
-     * Renders the LoadingHallSwitcher component.
-     */
     render() {
         clear(this._wrapperElementId);
         const targetElement = getById(this._sectionId);

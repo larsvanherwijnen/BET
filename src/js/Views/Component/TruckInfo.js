@@ -1,9 +1,4 @@
 export default class TruckInfo {
-    /**
-     * @param { boolean } isActive
-     * @param { string } textContent
-     * @returns { HTMLElement }
-     */
     constructor(callBack, truck, index) {
         const container = document.createElement('div');
         container.className = 'bg-gray-400 rounded p-2 flex justify-between items-center';

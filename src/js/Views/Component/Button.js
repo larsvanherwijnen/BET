@@ -1,9 +1,4 @@
 export default class Button {
-    /**
-     * @param { boolean } isActive
-     * @param { string } textContent
-     * @returns { HTMLElement }
-     */
     constructor(isActive, textContent, id, callBack) {
         const element = document.createElement('button');
         element.className = 'w-full border border-2 border-slate-700 rounded-2xl p-2 mt-2';

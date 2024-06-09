@@ -1,7 +1,6 @@
 import { Button, SectionTitle, createElement, clear, getById} from '../modules.js';
 
 export default class LoadingHallSwitcher {
-
     constructor(loadingHalls, callback, sectionId) {
         this._loadingHalls = loadingHalls;
         this._callbackFunction = callback;

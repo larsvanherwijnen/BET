@@ -73,7 +73,6 @@ export default class ConveyorBeltController {
             dockDiv.classList.add('dock', 'flex-grow', 'm-2', 'rounded', 'h-56');
             dockDiv.style.flexBasis = '0';
             if (dock !== null) {
-                // Display the truck in the dock
                 truckView.displayGrid(dock, dockDiv, this.removePackageFromConveyorBelt.bind(this), this.sendTruckAwayAndBringNewOne.bind(this));
             }
             docksDiv.appendChild(dockDiv);
@@ -95,21 +94,16 @@ export default class ConveyorBeltController {
             return;
         }
         const truckElement = getById(truckId);
-        truckElement.classList.add('truck-leave'); // Add the leaving animation class
+        truckElement.classList.add('truck-leave');
 
         const dockIndex = conveyorBelt.docks.findIndex(dock => dock && dock._id == truckId);
         const truck = conveyorBelt.docks[dockIndex];
 
-        // Start a timeout timer
         setTimeout(() => {
-            // Clear the truck's packages
             truck.clearPackages();
-
-            // Add the returning animation class and remove the leaving animation class
             truckElement.classList.remove('truck-leave');
             let dock = truckElement.parentElement;
             dock.removeChild(truckElement);
-
 
             let truckView = new TruckView();
             truckView.displayGrid(truck, dock, this.removePackageFromConveyorBelt.bind(this), this.sendTruckAwayAndBringNewOne.bind(this));
@@ -117,11 +111,10 @@ export default class ConveyorBeltController {
 
             newTruckElement.classList.add('truck-return');
 
-            // Listen for the animationend event
             newTruckElement.addEventListener('animationend', () => {
                 this.render();
             });
-        }, truck._arrivalInterval * 1000); // Convert arrivalInterval from seconds to milliseconds
+        }, truck._arrivalInterval * 1000);
     }
 
     removePackageFromConveyorBelt(packageId) {

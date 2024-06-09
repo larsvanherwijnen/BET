@@ -1,4 +1,4 @@
-import { TruckView, Truck, TruckForm, TruckType, TruckOverviewView, getById} from "../modules.js";
+import { Truck, TruckForm, TruckType, TruckOverviewView, getById} from "../modules.js";
 
 export default class TruckController {
     constructor(betTransport, animationState, weatherApi) {
@@ -22,8 +22,7 @@ export default class TruckController {
         this._betTransport.activeLoadingHall = originalLoadingHall.id;
 
         this.render();
-        this.autoPlacePackageInTruck(); // Call the autoPlacePackageInTruck method here
-
+        this.autoPlacePackageInTruck(); 
     }
 
 
@@ -37,25 +36,20 @@ export default class TruckController {
     }
 
     removeTruck(truckIndex) {
-        // Get the truck to be removed
         const truckToRemove = this._betTransport.activeLoadingHall.getTrucks()[truckIndex];
 
-        // Find the conveyor belt and dock where the truck is located
         for (let i = 0; i < this._betTransport.activeLoadingHall.conveyorBelts.length; i++) {
             const conveyorBelt = this._betTransport.activeLoadingHall.conveyorBelts[i];
             for (let j = 0; j < conveyorBelt.docks.length; j++) {
                 if (conveyorBelt.docks[j] === truckToRemove) {
-                    // Found the dock, remove the truck from this dock
                     conveyorBelt.removeTruckFromDock(j);
                     break;
                 }
             }
         }
 
-        // Remove the truck from the active loading hall
         this._betTransport.activeLoadingHall.removeTruck(truckIndex);
 
-        // Render the updated state
         this.render();
     }
 
@@ -72,13 +66,11 @@ export default class TruckController {
     }
 
     addTruckToDock(truck) {
-        // Find the first conveyor belt with a free dock
         for (let i = 0; i < this._betTransport.activeLoadingHall.conveyorBelts.length; i++) {
             const conveyorBelt = this._betTransport.activeLoadingHall.conveyorBelts[i];
             const freeDockIndex = conveyorBelt.docks.findIndex(dock => dock === null);
 
             if (freeDockIndex !== -1) {
-                // Found a free dock, add the truck to this dock
                 conveyorBelt.addTruckToDock(truck, freeDockIndex);
                 this._betTransport.activeLoadingHall.addTruck(truck);
                 break;
@@ -104,18 +96,14 @@ export default class TruckController {
 
         let truck, position;
 
-        // Iterate over all docks on the conveyor belt
         for (let dock of conveyorBelt.docks) {
             if (!dock) continue;
 
-            // Check if the truck can drive
             if (!this._weatherApi.canTruckDrive(dock.type)) {
-                // If the truck can't drive, add the package to an array and continue with the next dock
                 this._storedPackages.push(parcel);
                 continue;
             }
 
-            // Find a position in the current dock where the package can be placed
             for (let row = 0; row < dock.length; row++) {
                 for (let col = 0; col < dock.width; col++) {
                     if (dock.canPlacePackage(parcel.shape, row, col)) {
@@ -127,11 +115,9 @@ export default class TruckController {
                 if (truck) break;
             }
 
-            // If a suitable position is found in the current dock, break the loop over the docks
             if (truck) break;
         }
 
-        // If no suitable position is found in any dock, return
         if (!truck || !position) return;
 
         const packageElement = getById(parcel.id);
@@ -158,7 +144,6 @@ export default class TruckController {
         element.style.transition = 'transform 0.5s ease-in-out';
         element.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
 
-        // Listen for animation end or interrupt it when the package reaches the truck
         const animationEndHandler = () => {
             element.style.transition = '';
             element.style.transform = '';
@@ -168,7 +153,6 @@ export default class TruckController {
 
         element.addEventListener('transitionend', animationEndHandler);
 
-        // Interrupt animation if the package reaches the truck (within 1 pixel tolerance)
         const checkPosition = () => {
             const currentRect = element.getBoundingClientRect();
             const distanceToTarget = Math.sqrt(

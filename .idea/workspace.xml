@@ -5,7 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d24da955-a83d-48db-baa3-cb1ace88bca7" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/js/Services/Weather.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/Services/Weather.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/js/Views/TruckView.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/Views/TruckView.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/js/controllers/LoadingHallController.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/controllers/LoadingHallController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/js/controllers/MainController.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/controllers/MainController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/js/controllers/conveyerbeltController.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/controllers/conveyerbeltController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/js/controllers/truckController.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/controllers/truckController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/js/models/truck.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/models/truck.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

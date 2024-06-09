@@ -11,6 +11,7 @@ export default class ConveyorBeltController {
         this.addConveyorBelt();
         this._transport.activeLoadingHall = originalLoadingHall.id;
         new ManageConveyorBeltsView(this.addConveyorBelt.bind(this), this.removeConveyorBelt.bind(this), 'section-left');
+
         this.render();
     }
 
@@ -69,7 +70,7 @@ export default class ConveyorBeltController {
 
         conveyorBelt.docks.forEach((dock, index) => {
             const dockDiv = createElement('div');
-            dockDiv.classList.add('dock', 'flex-grow', 'm-2', 'rounded', 'h-48');
+            dockDiv.classList.add('dock', 'flex-grow', 'm-2', 'rounded', 'h-56');
             dockDiv.style.flexBasis = '0';
             if (dock !== null) {
                 // Display the truck in the dock
@@ -89,8 +90,6 @@ export default class ConveyorBeltController {
 
 
     sendTruckAwayAndBringNewOne(truckId) {
-        // Find the truck by its id
-        console.log('Sending truck away:', truckId);
         const conveyorBelt = this._transport.activeLoadingHall.conveyorBelts.find(belt => belt.docks.some(dock => dock && dock._id == truckId));
         if (!conveyorBelt) {
             return;
@@ -100,11 +99,11 @@ export default class ConveyorBeltController {
 
         const dockIndex = conveyorBelt.docks.findIndex(dock => dock && dock._id == truckId);
         const truck = conveyorBelt.docks[dockIndex];
+
         // Start a timeout timer
         setTimeout(() => {
             // Clear the truck's packages
             truck.clearPackages();
-            console.log('Truck:', truck);
 
             // Add the returning animation class and remove the leaving animation class
             truckElement.classList.remove('truck-leave');
@@ -114,20 +113,18 @@ export default class ConveyorBeltController {
 
             let truckView = new TruckView();
             truckView.displayGrid(truck, dock, this.removePackageFromConveyorBelt.bind(this), this.sendTruckAwayAndBringNewOne.bind(this));
-            const truckElement1 = getById(truckId);
+            const newTruckElement = getById(truckId);
 
-            truckElement1.classList.add('truck-return');
+            newTruckElement.classList.add('truck-return');
 
             // Listen for the animationend event
-            truckElement1.addEventListener('animationend', () => {
-                // Animation has ended, rerender the view
+            newTruckElement.addEventListener('animationend', () => {
                 this.render();
             });
         }, truck._arrivalInterval * 1000); // Convert arrivalInterval from seconds to milliseconds
     }
 
     removePackageFromConveyorBelt(packageId) {
-        console.log('Removing package with id:', packageId);
         this._transport.activeLoadingHall.conveyorBelts.forEach(belt => {
             belt.removePackage(packageId);
         });

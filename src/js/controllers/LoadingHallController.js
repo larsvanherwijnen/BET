@@ -1,12 +1,14 @@
 import  {LoadingHall, LoadingHallSwitcher, TruckController, ConveyorBeltController} from "../modules.js"
 
 export default class LoadingHallController {
-    constructor(transport) {
+    constructor(transport, weatherApi, animationState) {
         this._transport = transport;
         this.initiateLoadingHalls(2);
         this.render();
+        this._weatherApi = weatherApi;
+
         this._conveyerbeltController = new ConveyorBeltController(transport)
-        this._truckController = new TruckController(transport);
+        this._truckController = new TruckController(transport, animationState, this._weatherApi);
         this.switchLoadingHall(1);
     }
 
@@ -30,5 +32,4 @@ export default class LoadingHallController {
         this._truckController.render();
         this._conveyerbeltController.render();
     }
-
 }

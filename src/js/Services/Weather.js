@@ -1,3 +1,5 @@
+import {TruckType} from "../modules.js";
+
 export default class Weather {
     constructor(){
         this.apiKey = "287acabb2762c04d15acfc423d950581";
@@ -63,5 +65,18 @@ export default class Weather {
 
     updateWeatherData(city) {
         return this.getWeatherInformation(city);
+    }
+
+    canTruckDrive(truckType) {
+        if (truckType === TruckType.Fragile && (this.weatherData.isRaining || this.weatherData.isSnowing)) {
+            return false;
+        }
+        if (truckType === TruckType.Cold && this.weatherData.temperature > 5) {
+            return false;
+        }
+        if (truckType === TruckType.Pallets && this.weatherData.isWindy) {
+            return false;
+        }
+        return true;
     }
 }

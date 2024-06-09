@@ -3,17 +3,20 @@ import {WeatherApi, BetTransport, LoadingHallController, LocationInputView,Anima
 export default class MainController {
     constructor() {
         const betTransport = new BetTransport();
-        new LoadingHallController(betTransport);
-        this._weahterApi = new WeatherApi()
-        this._locationInputView = new LocationInputView(this.handleLocationInput.bind(this), 'section-left');
-        this._animationsOn = true;
+        this._weatherApi = new WeatherApi()
+        let animationsOn = true ;
         this._animationToggle = new AnimationToggle(this.AnimationToggle.bind(this), this._animationsOn, 'section-left');
-    }
+        new LoadingHallController(betTransport, this._weatherApi, this.getAnimationState.bind(this));        this._locationInputView = new LocationInputView(this.handleLocationInput.bind(this), 'section-left');
+       }
 
     handleLocationInput(city){
-        this._weahterApi.updateWeatherData(city).then(() => {
-            this._locationInputView.setWeatherData(this._weahterApi.weatherData);
+        this._weatherApi.updateWeatherData(city).then(() => {
+            this._locationInputView.setWeatherData(this._weatherApi.weatherData);
         });
+    }
+
+    getAnimationState(){
+        return this._animationsOn;
     }
 
     AnimationToggle(){

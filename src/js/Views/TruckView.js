@@ -1,3 +1,5 @@
+import {getById} from "../modules.js";
+
 export default class TruckView {
     displayGrid(truck, trucksContainer, removePackageCallBack, sendTruckAwayCallback) {
         // Create a new div for the truck container
@@ -36,7 +38,7 @@ export default class TruckView {
                 cell.addEventListener('drop', (event) => {
                     event.preventDefault();
                     const data = event.dataTransfer.getData('text/plain');
-                    const packageElement = document.getElementById(data);
+                    const packageElement = getById(data);
                     if (packageElement) {
                         // Get the package shape and recolor the corresponding cells in the truck grid
                         const packageShape = JSON.parse(packageElement.dataset.shape);

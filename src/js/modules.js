@@ -11,7 +11,7 @@ import ConveyorBeltController from "./Controllers/ConveyerbeltController.js"
 // Models
 import BetTransport from "./Models/BetTransport.js"
 import LoadingHall from "./Models/LoadingHall.js"
-import Truck from "./models/truck.js"
+import Truck from "./Models/Truck.js"
 import TruckForm from "./Views/TruckCreateFormView.js"
 import TruckType from "./Enums/TruckTypes.js"
 import ConveyorBelt from "./models/ConveyorBelt.js"

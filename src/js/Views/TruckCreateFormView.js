@@ -44,14 +44,12 @@ export default class TruckForm {
             iteration++;
         });
 
-
         const buttonSection = createElement('div');
         buttonSection.className = 'flex justify-between';
 
         this._prevBtn = new Button(true, "Vorige", "prevBtn", () => this.showStep(this._currentStep - 1));
         this._nextBtn = new Button(true, "Volgende", "nextBtn", () => this.validateAndNextStep(this._currentStep));
         this._saveBtn = new Button(true, "Opslaan", "saveBtn", () => this.validateAndSave(this._currentStep));
-
 
         buttonSection.appendChild(this._prevBtn)
         buttonSection.appendChild(this._nextBtn)

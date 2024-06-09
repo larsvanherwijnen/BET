@@ -5,6 +5,7 @@ export default class ConveyorBeltController {
         this._transport = transport;
 
         const originalLoadingHall = this._transport.activeLoadingHall;
+            
         this._transport.activeLoadingHall = this._transport.loadingHalls[0].id;
         this.addConveyorBelt();
         this._transport.activeLoadingHall = this._transport.loadingHalls[1].id;
@@ -45,7 +46,7 @@ export default class ConveyorBeltController {
 
     renderConveyorBelts() {
         const container = getById('conveyorBeltsContainer');
-        container.innerHTML = ''; // Clear existing content
+        container.innerHTML = ''; 
 
         const conveyorBelts = this._transport.activeLoadingHall.conveyorBelts;
         conveyorBelts.forEach(belt => {

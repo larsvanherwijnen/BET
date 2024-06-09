@@ -10,19 +10,16 @@ export default class Truck {
     }
 
     canPlacePackage(packageShape, startRow, startCol) {
-        // Check if packageShape is a valid 2D array
         if (!Array.isArray(packageShape) || !packageShape.every(row => Array.isArray(row))) {
             throw new Error("Invalid package shape");
         }
 
-        // Check if the package fits within the truck dimensions
         if (startRow < 0 || startCol < 0 ||
             startRow + packageShape.length > this._length ||
             startCol + packageShape[0].length > this._width) {
             return false;
         }
 
-        // Check for collision with already filled parts
         for (let row = 0; row < packageShape.length; row++) {
             for (let col = 0; col < packageShape[row].length; col++) {
                 if (packageShape[row][col] === 1 &&

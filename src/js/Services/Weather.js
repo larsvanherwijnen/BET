@@ -1,4 +1,4 @@
-import {getById} from "../modules.js";
+import {TruckType, getById} from "../modules.js";
 
 export default class Weather {
     constructor(){
@@ -71,7 +71,7 @@ export default class Weather {
         if (truckType === TruckType.Fragile && (this.weatherData.isRaining || this.weatherData.isSnowing)) {
             return false;
         }
-        if (truckType === TruckType.Cold && this.weatherData.temperature > 5) {
+        if (truckType === TruckType.Cold && this.weatherData.temperature > 35) {
             return false;
         }
         if (truckType === TruckType.Pallets && this.weatherData.isWindy) {

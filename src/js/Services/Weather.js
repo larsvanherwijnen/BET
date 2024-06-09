@@ -1,3 +1,5 @@
+import {getById} from "../modules.js";
+
 export default class Weather {
     constructor(){
         this.apiKey = "287acabb2762c04d15acfc423d950581";
@@ -10,7 +12,7 @@ export default class Weather {
         return fetch(url)
             .then(response => {
                 if (!response.ok) {
-                    document.getElementById("cityError").textContent = "Oeps! Er is iets fout gegaan";
+                    getById("cityError").textContent = "Oeps! Er is iets fout gegaan";
                     return;
                 }
                 return response.json();
@@ -20,7 +22,7 @@ export default class Weather {
                     const { lat, lon } = data[0];
                     return { lat, lon };
                 } else {
-                    document.getElementById("cityError").textContent = "Stad niet";
+                    getById("cityError").textContent = "Stad niet gevonden";
                     throw new Error("City not found");
                 }
             })
@@ -31,7 +33,7 @@ export default class Weather {
     }
 
     async getWeatherInformation(city) {
-        document.getElementById("cityError").textContent = "";
+        getById("cityError").textContent = "";
         this.currentCity = city;
 
         return this.getCityCoordinates(city)
@@ -63,5 +65,18 @@ export default class Weather {
 
     updateWeatherData(city) {
         return this.getWeatherInformation(city);
+    }
+
+    canTruckDrive(truckType) {
+        if (truckType === TruckType.Fragile && (this.weatherData.isRaining || this.weatherData.isSnowing)) {
+            return false;
+        }
+        if (truckType === TruckType.Cold && this.weatherData.temperature > 5) {
+            return false;
+        }
+        if (truckType === TruckType.Pallets && this.weatherData.isWindy) {
+            return false;
+        }
+        return true;
     }
 }

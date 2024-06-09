@@ -12,7 +12,7 @@ export default class TruckForm {
         this._fields = [
             {
                 'width': { 'type': 'number', 'min': 2, 'max': 6, 'label': 'Breedte' },
-                'lenght': { 'type': 'number', 'min': 2, 'max': 3, 'label': 'Lengte' },
+                'length': { 'type': 'number', 'min': 2, 'max': 3, 'label': 'Lengte' },
             },
             {
                 'truckType': { 'type': 'select', 'options': TruckType, 'default': TruckType.General ,'label': 'Type' },
@@ -30,7 +30,7 @@ export default class TruckForm {
         const targetElement = getById(this._sectionId);
 
         const wrapperElement = createElement('div')
-        wrapperElement.appendChild(new SectionTitle("Formulier"))
+        wrapperElement.appendChild(new SectionTitle("Vrachtwagen toevoegen"))
         wrapperElement.id = this._wrapperElementId;
 
         const form = createElement('form');
@@ -44,14 +44,12 @@ export default class TruckForm {
             iteration++;
         });
 
-
         const buttonSection = createElement('div');
         buttonSection.className = 'flex justify-between';
 
         this._prevBtn = new Button(true, "Vorige", "prevBtn", () => this.showStep(this._currentStep - 1));
         this._nextBtn = new Button(true, "Volgende", "nextBtn", () => this.validateAndNextStep(this._currentStep));
         this._saveBtn = new Button(true, "Opslaan", "saveBtn", () => this.validateAndSave(this._currentStep));
-
 
         buttonSection.appendChild(this._prevBtn)
         buttonSection.appendChild(this._nextBtn)
@@ -61,7 +59,7 @@ export default class TruckForm {
 
         wrapperElement.appendChild(form)
 
-        targetElement.insertBefore(wrapperElement, targetElement.children[1]);
+        targetElement.insertBefore(wrapperElement, targetElement.children[2]);
 
         this._steps = getElementsByClassName('step')
 

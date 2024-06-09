@@ -1,19 +1,19 @@
-import  {LoadingHall, LoadingHallSwitcher, TruckController, ConveyerbeltController} from "../modules.js"
+import  {LoadingHall, LoadingHallSwitcher, TruckController, ConveyorBeltController} from "../modules.js"
 
 export default class LoadingHallController {
-    constructor(transport) {
+    constructor(transport, weatherApi, animationState) {
         this._transport = transport;
-        this.initiateLoadingHalls(2);
+        this.initiateLoadingHalls(4);
         this.render();
-        this._truckController = new TruckController(transport);
-        this._conveyerbeltController = new ConveyerbeltController(transport)
+        this._weatherApi = weatherApi;
 
+        this._conveyerbeltController = new ConveyorBeltController(transport)
+        this._truckController = new TruckController(transport, animationState, this._weatherApi);
+        this.switchLoadingHall(1);
     }
 
     render() {
         this._loadingHallSwitcherView = new LoadingHallSwitcher(this._transport.loadingHalls, this.switchLoadingHall.bind(this), 'section-left'); 
-        document.getElementById('loadingHall').textContent = this._transport.activeLoadingHall.name;
-
     }
 
     initiateLoadingHalls(amountLoadingHalls) {
@@ -30,8 +30,6 @@ export default class LoadingHallController {
         this._transport.activeLoadingHall = id;
         this.render();
         this._truckController.render();
-                this._conveyerbeltController.render();
-
+        this._conveyerbeltController.render();
     }
-
 }

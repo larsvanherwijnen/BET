@@ -38,7 +38,7 @@ export default class LocationInputView {
         weatherDataElement.id = this._weatherDataElementId;
         wrapperElement.appendChild(weatherDataElement)
         const targetElement = getById(this._sectionId)
-        targetElement.insertBefore(wrapperElement, targetElement.children[4]);
+        targetElement.insertBefore(wrapperElement, targetElement.children[5]);
 
         getById('city').value = this._lastCity
       

@@ -29,7 +29,6 @@ export default class LoadingHall {
         return this._trucks;
     }
 
-
     addTruck(truck) {
         this._trucks.push(truck)
     }

@@ -3,7 +3,7 @@ import  {LoadingHall, LoadingHallSwitcher, TruckController, ConveyorBeltControll
 export default class LoadingHallController {
     constructor(transport, weatherApi, animationState) {
         this._transport = transport;
-        this.initiateLoadingHalls(4);
+        this.initiateLoadingHalls(2);
         this.render();
         this._weatherApi = weatherApi;
 
